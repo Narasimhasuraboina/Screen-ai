@@ -80,18 +80,21 @@ Step 1: Install Dependencies
 
 From the repository root, install all workspace packages:
 
-bash
+```bash
 npm install
-Step 2: Configure Environment Variables
+```
+
+### Step 2: Configure Environment Variables
 
 Copy the example environment configuration into the API package or root:
 
-bash
+```bash
 cp .env.example apps/api/.env
+```
 
-Edit apps/api/.env if you wish to connect an external AI model:
+Edit `apps/api/.env` if you wish to connect an external AI model:
 
-env
+```env
 PORT=3001
 NODE_ENV=development
 WEB_ORIGIN=http://localhost:5173
@@ -101,69 +104,89 @@ WEB_ORIGIN=http://localhost:5173
 AI_PROVIDER=openai
 AI_API_KEY=your_openai_or_gemini_api_key_here
 AI_MODEL=gpt-4o-mini
-5. Running the Application
-Option A: Run Backend & Web Concurrently
+```
+
+---
+
+## 5. Running the Application
+
+### Option A: Run Backend & Web Concurrently
 
 To start both the API server and the marketing website at the same time:
 
-bash
+```bash
 npm run dev:all
-Backend API: http://localhost:3001
-Public Website: http://localhost:5173
-Option B: Run Components Individually
-1. Start the Backend API
-bash
+```
+- **Backend API:** `http://localhost:3001`
+- **Public Website:** `http://localhost:5173`
+
+### Option B: Run Components Individually
+
+#### 1. Start the Backend API
+```bash
 npm run dev:api
+```
+Verify the server is healthy by visiting `http://localhost:3001/api/health` in your browser.
 
-Verify the server is healthy by visiting http://localhost:3001/api/health in your browser.
-
-2. Start the Website
-bash
+#### 2. Start the Website
+```bash
 npm run dev:web
+```
+Open `http://localhost:5173` to interact with the landing page and the zero-dependency interactive demo.
 
-Open http://localhost:5173 to interact with the landing page and the zero-dependency interactive demo.
-
-3. Build the Browser Extension
-bash
+#### 3. Build the Browser Extension
+```bash
 npm run build:extension
+```
 
-This generates a self-contained, valid Chromium Manifest V3 bundle inside the root dist-extension/ directory containing:
+This generates a self-contained, valid Chromium Manifest V3 bundle inside the root `dist-extension/` directory containing:
+- `manifest.json`
+- `sidepanel.html`
+- `popup.html`
+- `background.js` (service worker)
+- `content.js` (DOM extractor)
+- `assets/` and `icons/`
 
-manifest.json
-sidepanel.html
-popup.html
-background.js (service worker)
-content.js (DOM extractor)
-assets/ and icons/
-6. Loading the Extension into Chrome or Edge
-Open your browser and navigate to:
-Google Chrome: chrome://extensions
-Microsoft Edge: edge://extensions
-Toggle Developer mode in the top-right corner.
-Click the "Load unpacked" button in the top-left toolbar.
-Select the dist-extension directory located at the root of this project.
-Click the Extensions puzzle piece icon in your browser toolbar and Pin ScreenAI.
-Open any article (e.g., react.dev
- or github.com
-) and click the ScreenAI icon to launch the side panel!
-7. Automated Testing & Verification
+---
+
+## 6. Loading the Extension into Chrome or Edge
+
+1. Open your browser and navigate to:
+   - **Google Chrome:** `chrome://extensions`
+   - **Microsoft Edge:** `edge://extensions`
+2. Toggle **Developer mode** in the top-right corner.
+3. Click the **Load unpacked** button in the top-left toolbar.
+4. Select the `dist-extension` directory located at the root of this project.
+5. Click the Extensions puzzle piece icon in your browser toolbar and **Pin ScreenAI**.
+6. Open any article or documentation page and click the ScreenAI icon to launch the side panel!
+
+---
+
+## 7. Automated Testing & Verification
 
 Run the test suite to verify backend input validation, rate limiting, and extraction sanitizers:
 
-bash
+```bash
 npm test
+```
 
 Perform type checking across all workspaces:
 
-bash
+```bash
 npm run typecheck
+```
 
 Build all packages for production:
 
-bash
+```bash
 npm run build
-8. Privacy & Security Architecture
-User-Initiated Processing Only: Content is extracted and transmitted only when the user explicitly clicks "Generate Summary" or sends a chat message.
-Zero Form / Password Scraping: Form inputs, password fields, cookies, and hidden elements are completely stripped by the content cleaner before processing.
-API Key Security: LLM credentials are strictly stored on the backend server. The extension never bundles or exposes API keys.
-Anti-Prompt-Injection Safeguards: Webpage content is framed as untrusted external data within system prompts to resist indirect injection attempts.
+```
+
+---
+
+## 8. Privacy & Security Architecture
+
+- **User-Initiated Processing Only:** Content is extracted and transmitted only when the user explicitly clicks "Generate Summary" or sends a chat message.
+- **Zero Form / Password Scraping:** Form inputs, password fields, cookies, and hidden elements are completely stripped by the content cleaner before processing.
+- **API Key Security:** LLM credentials are strictly stored on the backend server. The extension never bundles or exposes API keys.
+- **Anti-Prompt-Injection Safeguards:** Webpage content is framed as untrusted external data within system prompts to resist indirect injection attempts.

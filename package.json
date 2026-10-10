@@ -1,0 +1,29 @@
+{
+  "name": "screen-ai",
+  "version": "1.0.0",
+  "description": "ScreenAI — Complete AI Browser Assistant",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run --workspace=@screenai/web dev",
+    "dev:all": "concurrently -n \"API,WEB\" -c \"blue,green\" \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": "npm run --workspace=@screenai/api dev",
+    "dev:web": "npm run --workspace=@screenai/web dev",
+    "dev:extension": "npm run --workspace=@screenai/extension dev",
+    "build": "npm run build:shared && npm run build:api && npm run build:extension && npm run build:web",
+    "build:shared": "npm run --workspace=@screenai/shared build",
+    "build:api": "npm run --workspace=@screenai/api build",
+    "build:web": "npm run --workspace=@screenai/web build",
+    "build:extension": "npm run --workspace=@screenai/extension build",
+    "typecheck": "npm run --workspace=@screenai/shared typecheck && npm run --workspace=@screenai/api typecheck && npm run --workspace=@screenai/extension typecheck && npm run --workspace=@screenai/web typecheck",
+    "test": "npm run test:api",
+    "test:api": "npm run --workspace=@screenai/api test"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
+

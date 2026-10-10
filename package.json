@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "dev": "npm run --workspace=@screenai/web dev",
-    "dev:all": "concurrently -n \"API,WEB\" -c \"blue,green\" \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:all": "npm run dev:api & npm run dev:web",
     "dev:api": "npm run --workspace=@screenai/api dev",
     "dev:web": "npm run --workspace=@screenai/web dev",
     "dev:extension": "npm run --workspace=@screenai/extension dev",
@@ -21,9 +21,6 @@
     "typecheck": "npm run --workspace=@screenai/shared typecheck && npm run --workspace=@screenai/api typecheck && npm run --workspace=@screenai/extension typecheck && npm run --workspace=@screenai/web typecheck",
     "test": "npm run test:api",
     "test:api": "npm run --workspace=@screenai/api test"
-  },
-  "devDependencies": {
-    "concurrently": "^9.1.2"
   }
 }
 

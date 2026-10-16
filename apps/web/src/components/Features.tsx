@@ -81,6 +81,7 @@ export const Features: React.FC = () => {
           >
             Capabilities
           </div>
+          <h1></h1>
           <h2
             className="text-gradient"
             style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '12px' }}
@@ -132,6 +133,7 @@ export const Features: React.FC = () => {
               </p>
             </div>
           ))}
+
         </div>
       </div>
     </section>
